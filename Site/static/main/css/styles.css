@@ -1,0 +1,13 @@
+.main_bg{
+    background: rgb(13, 0, 255);
+    box-shadow: 0 -200px 100px -120px rgb(16, 101, 228) inset;
+    animation: background 5s infinite alternate;
+  }
+  
+  @keyframes background {
+    50% {
+      background: rgb(21, 85, 225);
+      box-shadow: 0 -200px 100px -100px rgb(72, 19, 228) inset;
+    }
+  }
+

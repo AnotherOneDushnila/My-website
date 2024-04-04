@@ -1,1 +1,1 @@
-# My-website
+# This is my personal website, based on django.
