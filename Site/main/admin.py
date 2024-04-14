@@ -7,3 +7,7 @@ admin.site.register(UserInfo, admin.ModelAdmin)
 admin.site.register(Project, admin.ModelAdmin)
 
 admin.site.register(Education, admin.ModelAdmin)
+
+admin.site.register(Contacts, admin.ModelAdmin)
+
+admin.site.register(Messages, admin.ModelAdmin)

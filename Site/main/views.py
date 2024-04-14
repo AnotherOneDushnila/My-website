@@ -1,13 +1,61 @@
+from typing import Any, Dict
 from django.shortcuts import render
+from django.views.generic.list import ListView
 from .models import *
+from .form import *
 
 # Create your views here.
 
+# def projects(request):
+#     return render(request, "main/projects.html", {"Project" : Project.objects.all()})
+
+# def education(request):
+#     return render(request, "main/education.html", {"Education" : Education.objects.all()})
+
+
+class ProjectListView(ListView):
+    model =  Project
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        project = Project.objects.all()
+        context["project"] = project
+        return context
+    
+
+class EducationListView(ListView):
+    model = Education
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        education = Education.objects.all()
+        context["education"] = education
+        return context
+    
+
+class ContactsListView(ListView):
+    model = Contacts
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['form'] = MessageForm()
+        context['messege'] = Messages()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            form = MessageForm(request.POST)
+            if form.is_valid():
+                message = form.save(commit = False)
+                message.flag = 'Ready to send'
+                message.save()
+
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(object_list = self.object_list, form = MessageForm())
+        context['messege'] = Messages()
+        
+        return render(request, "mysite/contacts_list.html", context = context)
+    
 def about(request):
     return render(request, "main/about.html")
-
-def projects(request):
-    return render(request, "main/projects.html", {"Project" : Project.objects.all()})
-
-def education(request):
-    return render(request, "main/education.html", {"Education" : Education.objects.all()})
