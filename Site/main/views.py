@@ -4,17 +4,13 @@ from django.views.generic.list import ListView
 from .models import *
 from .form import *
 
-# Create your views here.
 
-# def projects(request):
-#     return render(request, "main/projects.html", {"Project" : Project.objects.all()})
 
-# def education(request):
-#     return render(request, "main/education.html", {"Education" : Education.objects.all()})
 
 
 class ProjectListView(ListView):
     model =  Project
+    template_name = "projects.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -25,6 +21,7 @@ class ProjectListView(ListView):
 
 class EducationListView(ListView):
     model = Education
+    template_name = "education.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -35,11 +32,12 @@ class EducationListView(ListView):
 
 class ContactsListView(ListView):
     model = Contacts
+    template_name = "contacts.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['form'] = MessageForm()
-        context['messege'] = Messages()
+        context['message'] = Messages()
         return context
     
     def post(self, request, *args, **kwargs):
@@ -53,7 +51,7 @@ class ContactsListView(ListView):
 
         self.object_list = self.get_queryset()
         context = super().get_context_data(object_list = self.object_list, form = MessageForm())
-        context['messege'] = Messages()
+        context['message'] = Messages()
         
         return render(request, "mysite/contacts_list.html", context = context)
     
