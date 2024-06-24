@@ -1,0 +1,42 @@
+services:
+  django_project:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    depends_on:
+      - database
+    networks:
+      - django-network
+
+  bot:
+    build:
+      context: bot
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 8889:8889
+    depends_on:
+      - database
+    networks:
+      - django-network
+
+  database:
+    image: postgres:16.2-alpine
+    environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${USERNAME}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5423:5423"
+    networks:
+      - django-network
+
+networks:
+  django-network:
+    driver: bridge
+

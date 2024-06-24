@@ -6,11 +6,8 @@ from .form import *
 
 
 
-
-
 class ProjectListView(ListView):
     model =  Project
-    template_name = "projects.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -21,8 +18,7 @@ class ProjectListView(ListView):
 
 class EducationListView(ListView):
     model = Education
-    template_name = "education.html"
-
+    
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         education = Education.objects.all()
@@ -32,8 +28,7 @@ class EducationListView(ListView):
 
 class ContactsListView(ListView):
     model = Contacts
-    template_name = "contacts.html"
-
+    
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['form'] = MessageForm()
