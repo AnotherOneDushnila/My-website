@@ -2,6 +2,6 @@
 
 ## Folders:
 
-### bot - consists of different parst of my telegram bot & Dockerfile
+### bot - consists of different parts of my telegram bot & Dockerfile
 
 ### Site - includes simple django-based web site
