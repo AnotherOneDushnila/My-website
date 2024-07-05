@@ -44,7 +44,12 @@ async def get_new_messages(message: Message) -> Message:
 
         try:
             data = Base.fetch_new()
-            await message.reply(f"Here are some new messages:\n{data}")
+
+            if data != None:
+                await message.reply(f"Here are some new messages:\n{data}")
+
+            else:
+                await message.reply(f"Sorry, list of new messeges is empty!")
 
         except:
             message.answer(f"Sorry, something went wrong!")
