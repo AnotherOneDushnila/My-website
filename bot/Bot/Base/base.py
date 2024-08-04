@@ -45,6 +45,7 @@ class Base:
         """
         conn = psycopg2.connect(
 
+            database = DB_NAME,
             user = USERNAME,
             password = DB_PASSWORD,
             host = HOST,
@@ -69,16 +70,6 @@ class Base:
 
     def parse(data : List[Tuple]):
         
-        info : str; contact : str
-        fd = data[0]
-        
-        info_contact = [*fd]
-
-        info, contact = info_contact[0], info_contact[1]
-
-        result = info + '\n' + contact
-
-        print(type(result))
-        print(result)
+        result = '\n----------\n'.join([pair[0] + '\n' + pair[1] for pair in data]) 
 
         return result
